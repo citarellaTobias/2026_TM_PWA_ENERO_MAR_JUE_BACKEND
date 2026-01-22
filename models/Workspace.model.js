@@ -8,7 +8,7 @@ const workspaceSchema = new mongoose.Schema(
             ref: 'User', //Aca marcamos la "relacion"
             required: true
         },
-        tittle: {
+        title: {
             type: String,
             required: true
         },
