@@ -1,7 +1,6 @@
 
 
 # Recomiendo que hagan por su cuenta: 
-
 - PUT /:workspace_id => Actualizar espacio de trabajo
 - DELETE /:workspace_id/members/:member_id => Borrar miembro
 - PUT /:workspace_id/members/:member_id => Actualizar miembro (por ejemplo role)

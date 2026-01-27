@@ -22,5 +22,5 @@ const channelsSchema = new mongoose.Schema(
     }
 )
 
-const Channels = mongoose.Model('Channels', channelsSchema)
-export default Channels
+const Channel = mongoose.Model('Channels', channelsSchema)
+export default Channel
