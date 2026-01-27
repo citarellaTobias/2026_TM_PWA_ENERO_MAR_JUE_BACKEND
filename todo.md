@@ -21,5 +21,8 @@
     -Tiene que traer toda la info de cierto espacio de trabajo incluyendo nuestra membresia con ellos (o sea si soy owner, admin o miembro)
 - GET /:workspace_id/channels => Obtener canales relacionados al espacio de trabajo
 - PUT /:workspace_id/channels => Crear canal
+- Crear un middleware de canales, channelMiddleware
+    - Verificar que x canal exista
+    - Verificar que pertenezca a x espacio de trabajo
 - GET /:workspace_id/channels/:channel_id/messages => Obtener mensajes relacionados al canal
 - PUT /:workspace_id/channels/:channel_id/messages => Crear mensaje
