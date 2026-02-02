@@ -15,9 +15,9 @@ workspaceRouter.get('/:workspace_id', authMiddleware, workspaceMiddleware(), wor
 
 workspaceRouter.delete('/:workspace_id', authMiddleware, workspaceController.delete)
 workspaceRouter.post(
-    '/:workspace_id/members',
-    authMiddleware,
-    workspaceMiddleware(['Owner', 'Admin']),
+    '/:workspace_id/members', 
+    authMiddleware, 
+    workspaceMiddleware(['Owner', 'Admin']), 
     workspaceController.addMemberRequest
 )
 workspaceRouter.get('/:workspace_id/members/accept-invitation', workspaceController.acceptInvitation)
@@ -36,21 +36,24 @@ workspaceRouter.post(
     channelController.create
 )
 
+
 workspaceRouter.post(
-    '/:workspace_id/channels/:channel_id/message',
+    '/:workspace_id/channels/:channel_id/messages',
     authMiddleware,
     workspaceMiddleware(),
     channelMiddleware,
     messagesController.create
 )
 
+
 workspaceRouter.get(
-    '/:workspace_id/channels/:channel_id/message',
+    '/:workspace_id/channels/:channel_id/messages',
     authMiddleware,
     workspaceMiddleware(),
     channelMiddleware,
-    messagesController.create
+    messagesController.getByChannelId
 )
+
 
 
 export default workspaceRouter
