@@ -4,6 +4,7 @@ import authRouter from "./routes/auth.router.js"
 import cors from 'cors'
 import workspaceRouter from "./routes/workspace.router.js"
 import workspaceRepository from "./repository/workspace.repository.js"
+import messagesRepository from "./repository/messages.repository.js"
 
 connectMongoDB()
 

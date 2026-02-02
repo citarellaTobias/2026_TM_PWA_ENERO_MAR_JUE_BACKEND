@@ -1,10 +1,10 @@
-import { ChannelRepository } from "../repository/channel.repository.js"
+import { channelRepository } from "../repository/channel.repository.js"
 
 class ChannelController{
     async getAllByWorkspaceId(request, response){
         try{
             const {workspace_id} = request.params
-            const channels = await ChannelRepository.getAllByWorkspaceId(workspace_id)
+            const channels = await channelRepository.getAllByWorkspaceId(workspace_id)
             response.json(
                 {
                     status: 200,
@@ -76,4 +76,4 @@ class ChannelController{
 }
 
 const channelController = new ChannelController()
-export  {ChannelController}
+export  {channelController}
