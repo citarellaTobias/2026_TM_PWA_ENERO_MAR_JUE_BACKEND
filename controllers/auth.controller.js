@@ -100,7 +100,7 @@ class AuthController {
                 throw new ServerError('Credenciales invalidas', 401)
             }
 
-            if(usuario_encontrado.email_verified){
+            if(!usuario_encontrado.email_verified){
                 throw new ServerError('Usuario con email no verificado', 401)
             }
 

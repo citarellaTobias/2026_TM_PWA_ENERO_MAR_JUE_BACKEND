@@ -45,7 +45,7 @@ app.listen(
 Quiero crear un espacio de trabajo de prueba
 */
 
-async function crearEspacioDeTrabajo (){
+/* async function crearEspacioDeTrabajo (){
 
     // Creo el espacio de trabajo de prueba
     const workspace = await workspaceRepository.create(
@@ -58,7 +58,7 @@ async function crearEspacioDeTrabajo (){
     await workspaceRepository.addMember(workspace._id, '696f828daca6144605a9f791', 'Owner')
 }
 
-crearEspacioDeTrabajo() 
+crearEspacioDeTrabajo()  */
 
 /* 
 1ero:

@@ -17,7 +17,7 @@ workspaceRouter.delete('/:workspace_id', authMiddleware, workspaceController.del
 workspaceRouter.post(
     '/:workspace_id/members', 
     authMiddleware, 
-    workspaceMiddleware(['Owner', 'Admin']), 
+    workspaceMiddleware(['Owner', 'Admin']),
     workspaceController.addMemberRequest
 )
 workspaceRouter.get('/:workspace_id/members/accept-invitation', workspaceController.acceptInvitation)
