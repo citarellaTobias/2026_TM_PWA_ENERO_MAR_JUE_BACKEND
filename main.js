@@ -3,68 +3,34 @@ import express from 'express'
 import authRouter from "./routes/auth.router.js"
 import cors from 'cors'
 import workspaceRouter from "./routes/workspace.router.js"
-import workspaceRepository from "./repository/workspace.repository.js"
-import messagesRepository from "./repository/messages.repository.js"
+import { verifyApiKeyMiddleware } from "./middlewares/apikey.middleware.js"
+import { errorHandlerMiddleware } from "./middlewares/error.middleware.js"
 
 connectMongoDB()
 
-//Crear un servidor web (Express app)
 const app = express()
 
-/* 
-Esto permite que otras direcciones distintas a la nuesta puedan consultar nuestro servidor
-*/
+
 app.use(cors())
-
-//Habilita a mi servidor a recibir json por body
-/* 
-lee el request.headers.['content-type'] y si el valor es 'application/json' entonces guarda en request.body el json transformado
-*/
 app.use(express.json())
+app.use(verifyApiKeyMiddleware)
 
-
+app.get('/', (request, response) => {
+    response.json({
+        ok: true,
+        message: 'Servidor funcionando correctamente',
+        data: null
+    })
+})
 
 app.use("/api/auth", authRouter)
 app.use("/api/workspace", workspaceRouter)
 
+app.use(errorHandlerMiddleware)
+
 app.listen(
-    8080, 
+    8082,
     () => {
-        console.log('Nuestra app se escucha en el puerto 8080')
+        console.log('Nuestra app se escucha en el puerto 8082')
     }
 )
-
-/* mail_transporter.sendMail({
-    from: ENVIRONMENT.GMAIL_USERNAME,
-    to: ENVIRONMENT.GMAIL_USERNAME,
-    subject: 'Probando nodemailer',
-    html: `<h1>Probando nodemailer</h1>`
-}) */
-
-/* 
-Quiero crear un espacio de trabajo de prueba
-*/
-
-/* async function crearEspacioDeTrabajo (){
-
-    // Creo el espacio de trabajo de prueba
-    const workspace = await workspaceRepository.create(
-        '696f828daca6144605a9f791', //Remplazen por su id
-        'test',
-        'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-        'Descripcion del espacio de trabajo'
-    )
-    // Me agrego como miembro
-    await workspaceRepository.addMember(workspace._id, '696f828daca6144605a9f791', 'Owner')
-}
-
-crearEspacioDeTrabajo()  */
-
-/* 
-1ero:
-    Crear espacio de trabajo
-    Agregar miembro
-
-2do: Crear endpoint para obtener espacios de trabajo asociados al usuario
-3ro: Probar con postman
-*/
