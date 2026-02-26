@@ -25,6 +25,11 @@ const memberWorkspaceSchema = new mongoose.Schema(
     }
 )
 
+// Middleware para popular automáticamente el usuario en las consultas
+memberWorkspaceSchema.pre(/^find/, function() {
+    this.populate('fk_id_user', 'name email username');
+});
+
 const MemberWorkspace = mongoose.model('MemberWorkspace', memberWorkspaceSchema)
 
 export default MemberWorkspace

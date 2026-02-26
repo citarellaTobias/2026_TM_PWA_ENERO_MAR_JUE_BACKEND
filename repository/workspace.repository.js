@@ -5,8 +5,18 @@ import Workspace from '../models/Workspace.model.js';
 class WorkspaceRepository {
 
     async getById(workspace_id){
-        return await WorkspaceRepository.findById(workspace_id)
+        return await Workspace.findById(workspace_id)
     }
+async update(workspace_id, title, description, image){
+    const workspace = await Workspace
+    .findByIdAndUpdate(workspace_id, {
+        title,
+        description,
+        image
+    }, {new: true})
+    return workspace
+}
+
     async getWorkspacesByUserId(user_id){
         //Busco a todos los miembros que pertenezcan al usuario
         //Esto seria buscar todas mis membresias
@@ -54,6 +64,60 @@ class WorkspaceRepository {
         const member = await MemberWorkspace.findOne({fk_id_workspace: workspace_id, fk_id_user: user_id})
         return member
     }
+    // ...existing code...
+
+ async acceptInvitation(workspace_id, user_id){
+    const member = await MemberWorkspace.findOneAndUpdate(
+        {fk_id_workspace: workspace_id, 
+                fk_id_user: user_id
+                        },
+        {status: 'accepted'},
+        {new: true}
+    )
+    return member
+}
+
+
+
+    async deleteMember(workspace_id, member_id){
+        await MemberWorkspace.findOneAndDelete({fk_id_workspace: workspace_id, _id: member_id})
+    }
+
+
+
+async updateMemberRole(workspace_id, member_id, member_role){
+    const member = await MemberWorkspace.findOneAndUpdate(
+        {
+            _id: member_id,
+            fk_id_workspace: workspace_id
+        },
+        {
+            role: member_role
+        },
+        {
+            new: true // Retorna el documento actualizado
+        }
+    )
+    return member
+}
+// ...existing code...
+  
+    async getMembersByWorkspaceId(workspace_id){
+        const members = await MemberWorkspace.find({fk_id_workspace: workspace_id})
+        .populate('fk_id_user', 'name email') // Esto permite expandir sobre la referencia a la tabla de usuarios, obteniendo solo el nombre y correo electrónico
+        return members.map(
+            (member) => {
+                return {
+                    member_id: member._id,
+                    member_role: member.role,
+                    member_id_user: member.fk_id_user._id,
+                    member_name_user: member.fk_id_user.name,
+                    member_email_user: member.fk_id_user.email
+                }
+            }
+        )
+    }
+
 
     async delete(workspace_id){
         await Workspace.findByIdAndUpdate(workspace_id,{active: false})

@@ -34,6 +34,24 @@ class WorkspaceController {
         })
     }
 
+
+
+    async update(request, response){
+        const { workspace_id } = request.params
+        const { title, description, image } = request.body
+        const workspace = await workspaceRepository.update(workspace_id, title, description, image)
+        response.json({
+            ok: true,
+            data: {
+                workspace
+            }
+        })
+    }
+
+
+
+
+
     async delete(request, response){
         const user_id = request.user.id
         const { workspace_id } = request.params
@@ -98,6 +116,7 @@ class WorkspaceController {
         )
     }
 
+
     async acceptInvitation (request, response){
         const { invitation_token } = request.query
 
@@ -106,6 +125,57 @@ class WorkspaceController {
         await workspaceRepository.addMember(workspace_id, id, role)
 
         response.redirect(`${ENVIRONMENT.URL_FRONTEND}/`)
+    }
+
+
+// ...existing code...
+async updateMemberRole(request, response) {
+    const { workspace_id, member_id } = request.params
+    const { role } = request.body
+
+    const updated_member = await workspaceRepository.updateMemberRole(workspace_id, member_id, role)
+    
+    if (!updated_member) {
+        return response.status(404).json({
+            ok: false,
+            status: 404,
+            message: 'Miembro no encontrado'
+        })
+    }
+
+    return response.json({
+        ok: true,
+        status: 200,
+        message: 'Rol actualizado con éxito',
+        data: {
+            updated_member
+        }
+    })
+}
+
+
+ async deleteMember(request, response) {
+        const { workspace_id, member_id } = request.params
+        await workspaceRepository.deleteMember(workspace_id, member_id)
+        return response.json({
+            ok: true,
+            status: 200,
+            message: 'Miembro eliminado con éxito',
+            data: null
+        })
+    }
+    
+    async getMembers(request, response){
+        const { workspace } = request
+        const members = await workspaceRepository.getMembersByWorkspaceId(workspace._id)
+        response.json({
+            ok: true,
+            status: 200,
+            data: {
+                members
+            },
+            message: 'Miembros del espacio de trabajo'
+        })
     }
 
     async getById(request, response){

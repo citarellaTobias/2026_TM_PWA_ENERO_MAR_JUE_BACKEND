@@ -34,6 +34,20 @@ class ChannelController {
             }
         )
     }
+
+  async updateChannelName(request, response) {
+    const { name } = request.body
+    const { workspace_id, channel_id } = request.params
+
+    const updated_name = await channelRepository.updateChannelName(workspace_id, channel_id, name)
+    response.json({
+        status: 200,
+        ok: true,
+        message: 'Canal actualizado con exito',
+        data: { updated_name }
+    })
+}
+
 }
 
 const channelController = new ChannelController()

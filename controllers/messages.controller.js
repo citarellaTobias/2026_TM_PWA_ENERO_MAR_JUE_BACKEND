@@ -12,11 +12,12 @@ class MessagesController {
                 ok: true,
                 status: 201,
                 message: 'Mensaje creado con exito'
+                
             }
         )
     }
 
-    async getByChannelId(request, response) {
+    async getAllByChannelId(request, response) {
         const { channel_id } = request.params
         const messages = await messagesRepository.getAllByChannelId(channel_id)
         return response.json(
@@ -30,6 +31,19 @@ class MessagesController {
             }
         )
     }
+    async delete(request, response) {
+    const { channel_id, message_id } = request.params
+    const member_id = request.member._id
+    await messagesRepository.delete(channel_id, message_id, member_id)
+    
+    return response.json(
+        {
+            ok: true,
+            status: 200,
+            message: 'Mensaje eliminado con exito'
+        }
+    )
+}
 }
 
 const messagesController = new MessagesController()
