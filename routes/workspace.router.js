@@ -53,7 +53,7 @@ workspaceRouter.delete(
 workspaceRouter.get(
   "/:workspace_id/members",
   authMiddleware,
-  workspaceMiddleware(["Owner"]),
+  workspaceMiddleware(),
   workspaceController.getMembers,
 );
 

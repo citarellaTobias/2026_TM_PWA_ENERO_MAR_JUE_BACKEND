@@ -104,7 +104,7 @@ async updateMemberRole(workspace_id, member_id, member_role){
   
     async getMembersByWorkspaceId(workspace_id){
         const members = await MemberWorkspace.find({fk_id_workspace: workspace_id})
-        .populate('fk_id_user', 'name email') // Esto permite expandir sobre la referencia a la tabla de usuarios, obteniendo solo el nombre y correo electrónico
+        .populate('fk_id_user', 'name email username') // Esto permite expandir sobre la referencia a la tabla de usuarios, obteniendo solo el nombre, correo electrónico y username
         return members.map(
             (member) => {
                 return {
@@ -112,7 +112,8 @@ async updateMemberRole(workspace_id, member_id, member_role){
                     member_role: member.role,
                     member_id_user: member.fk_id_user._id,
                     member_name_user: member.fk_id_user.name,
-                    member_email_user: member.fk_id_user.email
+                    member_email_user: member.fk_id_user.email,
+                    member_username_user: member.fk_id_user.username
                 }
             }
         )
