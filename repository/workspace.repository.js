@@ -27,15 +27,28 @@ async update(workspace_id, title, description, image){
         }) //Esto permite expandir sobre la referencia a la tabla de espacios de trabajo
 
         const members_workspace = workspaces.filter( (member) => member.fk_id_workspace !== null)
+        const workspace_ids = members_workspace.map((member) => member.fk_id_workspace._id)
+
+        const member_counts = await MemberWorkspace.aggregate([
+            { $match: { fk_id_workspace: { $in: workspace_ids } } },
+            { $group: { _id: '$fk_id_workspace', count: { $sum: 1 } } }
+        ])
+
+        const member_count_map = new Map(
+            member_counts.map((item) => [String(item._id), item.count])
+        )
+
         return members_workspace.map(
             (member_workspace) => {
+                const workspace_id = member_workspace.fk_id_workspace._id
                 return {
                     member_id: member_workspace._id,
                     member_role: member_workspace.role,
                     member_id_user: member_workspace.fk_id_user,
                     workspace_image: member_workspace.fk_id_workspace.image,
                     workspace_title: member_workspace.fk_id_workspace.title,
-                    workspace_id: member_workspace.fk_id_workspace._id
+                    workspace_id,
+                    member_count: member_count_map.get(String(workspace_id)) || 0
                 }
             }
         )

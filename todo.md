@@ -1,6 +1,6 @@
 ## Recomiendo que hagan por su cuenta:
 <!-- - PUT /:workspace_id => Actualizar espacio de trabajo -->
-- DELETE /:workspace_id/members/:member_id => Borrar miembro
+<!-- - DELETE /:workspace_id/members/:member_id => Borrar miembro -->
 <!-- - PUT /:workspace_id/members/:member_id => Actualizar miembro (por ejemplo el role) -->
 <!-- - PUT /:workspace_id/channels/:channel_id => Actualizar canal (por ejemplo el name) -->
 <!-- - DELETE /:workspace_id/channels/:channel_id/messages/:message_id => Eliminar un mensaje (siempre que seas admin o owner o el creador del mensaje) -->
@@ -27,7 +27,7 @@
 
 ## Funciones Terminadas:
    ## Core:       
-            - Tiene que ser miembro
+            - <!-- Tiene que ser miembro
             - Tiene que traer toda la info de cierto espacio de trabajo incluyendo nuestra membresia con ellos (osea si soy owner, admin o miembro)
         - GET /:workspace_id/channels => Obtener canales relacionados al espacio de trabajo
         - POST /:workspace_id/channels => Crear canal
@@ -35,7 +35,7 @@
             - Verificar que x canal exista
             - Verificar que pertenezca a x espacio de trabajo
         - POST /:workspace_id/channels/:channel_id/messages => Crear mensaje (Desarrollar este ahora) (ChannelMiddleware)
-        - GET /:workspace_id/channels/:channel_id/messages => Obtener mensajes relacionados al canal (ChannelMiddleware)
+        - GET /:workspace_id/channels/:channel_id/messages => Obtener mensajes relacionados al canal (ChannelMiddleware) -->
 
    ## Extras:
         <!-- - PUT /:workspace_id/channels/:channel_id => Actualizar canal (por ejemplo el name) -->
