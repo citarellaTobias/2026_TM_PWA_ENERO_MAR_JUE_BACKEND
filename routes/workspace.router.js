@@ -39,7 +39,7 @@ workspaceRouter.post(
 workspaceRouter.put(
   "/:workspace_id/members/:member_id/role",
   authMiddleware,
-  workspaceMiddleware(["Owner", "Admin"]),
+  workspaceMiddleware(),
   workspaceController.updateMemberRole,
 );
 
@@ -113,11 +113,11 @@ workspaceRouter.get(
   messagesController.getAllByChannelId,
 );
 
-workspaceRouter.delete(
+workspaceRouter.patch(
   "/:workspace_id/channels/:channel_id/messages/:message_id",
   authMiddleware,
   workspaceMiddleware(),
-  messagesController.delete,
-);
+  messagesController.softDelete
+)
 
 export default workspaceRouter;

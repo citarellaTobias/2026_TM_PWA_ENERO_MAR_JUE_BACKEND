@@ -31,18 +31,17 @@ class MessagesController {
             }
         )
     }
-    async delete(request, response) {
+  async softDelete(request, response) {
     const { channel_id, message_id } = request.params
     const member_id = request.member._id
-    await messagesRepository.delete(channel_id, message_id, member_id)
-    
-    return response.json(
-        {
-            ok: true,
-            status: 200,
-            message: 'Mensaje eliminado con exito'
-        }
-    )
+    const member_role = request.member.role
+
+    const result = await messagesRepository.softDelete(channel_id, message_id, member_id, member_role)
+    if (!result) {
+        return response.status(404).json({ ok: false, status: 404, message: 'Mensaje no encontrado' })
+    }
+
+    return response.json({ ok: true, status: 200, message: 'Mensaje eliminado con exito', data: { message: result } })
 }
 }
 

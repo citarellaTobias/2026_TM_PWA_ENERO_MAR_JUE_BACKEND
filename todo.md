@@ -38,8 +38,8 @@
         - GET /:workspace_id/channels/:channel_id/messages => Obtener mensajes relacionados al canal (ChannelMiddleware)
 
    ## Extras:
-        - PUT /:workspace_id/channels/:channel_id => Actualizar canal (por ejemplo el name)
-        - DELETE /:workspace_id/channels/:channel_id/messages/:message_id => Eliminar un mensaje (siempre que seas admin o owner o el creador del mensaje)
+        <!-- - PUT /:workspace_id/channels/:channel_id => Actualizar canal (por ejemplo el name) -->
+        <!-- - DELETE /:workspace_id/channels/:channel_id/messages/:message_id => Eliminar un mensaje (siempre que seas admin o owner o el creador del mensaje) -->
         - PUT /:workspace_id/members/:member_id => Actualizar miembro (por ejemplo el role)
         - PUT /:workspace_id => Actualizar espacio de trabajo
 
