@@ -100,7 +100,7 @@ class WorkspaceController {
                     <p>Si no reconoces esta invitacion por favor desestima este mail</p>
                     <p>Da click a 'aceptar invitacion' para aceptar la invitacion</p>
                     <a
-                    href='${ENVIRONMENT.URL_BACKEND}/api/workspace/${workspace._id}/members/accept-invitation?invitation_token=${token}'
+                    href='${ENVIRONMENT.URL_BACKEND}api/workspace/${workspace._id}/members/accept-invitation?invitation_token=${token}'
                     >Aceptar invitacion</a>
                 `
             }
