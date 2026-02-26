@@ -48,6 +48,19 @@ class ChannelController {
     })
 }
 
+
+    async deleteChannel(request, response) {  
+              const { workspace_id, channel_id } = request.params
+        await channelRepository.deleteChannel(workspace_id, channel_id)
+        response.json(
+            {
+                status: 200,
+                ok: true,
+                message: 'Canal eliminado con exito',
+            }
+        )
+    }
+
 }
 
 const channelController = new ChannelController()

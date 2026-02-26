@@ -69,6 +69,13 @@ workspaceRouter.get(
   channelController.getAllByWorkspaceId,
 );
 
+workspaceRouter.delete(
+  "/:workspace_id/channels/:channel_id",
+  authMiddleware,
+  workspaceMiddleware(["Owner", "Admin"]),
+  channelController.deleteChannel,
+);
+
 workspaceRouter.get(
   "/:workspace_id/channels/:channel_id/messages/:message_id",
   authMiddleware,

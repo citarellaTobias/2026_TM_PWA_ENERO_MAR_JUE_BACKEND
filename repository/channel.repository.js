@@ -16,6 +16,9 @@ class ChannelRepository {
     )
 }
 
+async deleteChannel(workspace_id, channel_id){
+    return await Channel.findOneAndDelete({ _id: channel_id, fk_id_workspace: workspace_id })
+}
 
   async getByIdAndWorkspaceId(channel_id, workspace_id) {
     return await Channel.findOne({

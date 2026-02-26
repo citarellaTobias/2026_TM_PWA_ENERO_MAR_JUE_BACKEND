@@ -102,6 +102,9 @@ async updateMemberRole(workspace_id, member_id, member_role){
 }
 // ...existing code...
   
+
+
+
     async getMembersByWorkspaceId(workspace_id){
         const members = await MemberWorkspace.find({fk_id_workspace: workspace_id})
         .populate('fk_id_user', 'name email username') // Esto permite expandir sobre la referencia a la tabla de usuarios, obteniendo solo el nombre, correo electrónico y username
